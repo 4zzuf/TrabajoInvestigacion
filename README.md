@@ -1,4 +1,4 @@
-# PrimerRepo
+# Trabajo de Investigación
 
 Este repositorio contiene utilidades para simulación.
 
