@@ -35,7 +35,7 @@ class SimulacionWorker(QtCore.QObject):
         random.seed(modelo.param_simulacion.semilla)
         env = simpy.Environment()
         estacion = modelo.EstacionIntercambio(
-            env, modelo.param_estacion.capacidad_estacion
+            env, modelo.param_estacion.capacidad_estacion, self._tiempo_ruta
         )
         env.process(
             modelo.llegada_autobuses(
@@ -132,6 +132,8 @@ class SimulacionWindow(QtWidgets.QWidget):
             "Cola",
             "Costos día",
             "Cargadores",
+            "Demanda eléctrica",
+            "SoC retorno",
             "Tráfico",
             "Intercambio",
             "Espera baterías",
@@ -180,6 +182,10 @@ class SimulacionWindow(QtWidgets.QWidget):
             GraficosModelo.grafico_costos_dia(block=False)
         elif opcion == "Cargadores":
             GraficosModelo.grafico_uso_cargadores(block=False)
+        elif opcion == "Demanda eléctrica":
+            GraficosModelo.grafico_demanda_electrica(block=False)
+        elif opcion == "SoC retorno":
+            GraficosModelo.grafico_soc_retorno(block=False)
         elif opcion == "Tráfico":
             trafico.graficar_trafico(block=False)
         elif opcion == "Intercambio":
