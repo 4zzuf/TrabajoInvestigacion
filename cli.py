@@ -35,6 +35,11 @@ def main():
         default=37.2,
         help="Distancia de la ruta en kilómetros",
     )
+    parser.add_argument(
+        "--quiet",
+        action="store_true",
+        help="Oculta la traza detallada de eventos y muestra solo resultados",
+    )
     args = parser.parse_args()
 
     if any(v is not None for v in [args.dias, args.max_autobuses, args.semilla]):
@@ -51,6 +56,9 @@ def main():
             total=args.total_baterias,
             iniciales=args.baterias_iniciales,
         )
+
+    if args.quiet:
+        modelo.VERBOSE = False
 
     estacion = modelo.ejecutar_simulacion(
         max_autobuses=modelo.param_simulacion.max_autobuses,

@@ -55,13 +55,9 @@ def graficar_trafico(factores=FACTORES_LIMA, block=True):
         Si ``True`` la ventana del gráfico es bloqueante.  Se pasa como
         argumento desde la interfaz para evitar congelar la aplicación.
     """
-    try:
-        import matplotlib.pyplot as plt
-        plt.style.use(ESTILO_MEJOR)
-    except Exception:
-        print("Falta matplotlib. Ejecuta 'pip install -r requirements.txt'")
-        return
+    import matplotlib.pyplot as plt
 
+    plt.style.use(ESTILO_MEJOR)
     horas = list(range(24))
     valores = [factores.get(h, 1.0) for h in horas]
 
