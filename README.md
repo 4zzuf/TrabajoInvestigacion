@@ -69,6 +69,53 @@ Para correr el caso base de 21 días:
 python cli.py --quiet --dias 21 --max-autobuses 20 --capacidad-estacion 21 --total-baterias 41 --baterias-iniciales 20 --tiempo-ruta 37.2
 ```
 
+
+## Entorno alternativo con Docker
+
+Si el entorno actual bloquea PyPI, crea y ejecuta el proyecto en una máquina o servicio donde Docker sí tenga salida a internet. El `Dockerfile` instala `simpy`, `matplotlib` y `PyQt5` reales desde `requirements.txt`.
+
+### Opción A: Docker local con internet
+
+```bash
+git clone <URL_DEL_REPOSITORIO>
+cd TrabajoInvestigacion
+docker build -t trabajo-investigacion .
+docker run --rm trabajo-investigacion
+```
+
+Para ejecutar el caso base completo dentro del contenedor:
+
+```bash
+docker run --rm trabajo-investigacion python cli.py --quiet --dias 21 --max-autobuses 20 --capacidad-estacion 21 --total-baterias 41 --baterias-iniciales 20 --tiempo-ruta 37.2
+```
+
+### Opción B: Docker con proxy institucional
+
+Si tu red necesita proxy, pásalo al construir la imagen:
+
+```bash
+docker build \
+  --build-arg HTTP_PROXY=http://usuario:clave@proxy:puerto \
+  --build-arg HTTPS_PROXY=http://usuario:clave@proxy:puerto \
+  --build-arg NO_PROXY=localhost,127.0.0.1 \
+  -t trabajo-investigacion .
+```
+
+Luego ejecútalo igual:
+
+```bash
+docker run --rm trabajo-investigacion
+```
+
+### Opción C: GitHub Codespaces o máquina virtual limpia
+
+Si no puedes cambiar la red del contenedor actual, usa un entorno con internet saliente permitido:
+
+1. Sube el repositorio a GitHub.
+2. Abre el repositorio en GitHub Codespaces o en una VM con Ubuntu/Python.
+3. Ejecuta `python -m pip install -r requirements.txt`.
+4. Ejecuta `python cli.py --quiet --dias 1 --max-autobuses 2 --capacidad-estacion 3 --total-baterias 6 --baterias-iniciales 3 --tiempo-ruta 10`.
+
 ## Interfaz gráfica
 
 ```bash
